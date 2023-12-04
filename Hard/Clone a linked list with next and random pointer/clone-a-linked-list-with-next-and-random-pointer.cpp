@@ -48,23 +48,39 @@ class Solution
             temp = temp->next ;
         }
         
-        unordered_map<Node*,Node*>m;
         Node* givenNode = head ;
         Node* cloneNode = cloneHead ;
         while(givenNode != NULL && cloneNode != NULL){
-            m[givenNode] = cloneNode ;
-            givenNode = givenNode->next ;
-            cloneNode = cloneNode->next ;
+            Node* next = givenNode->next ;
+            givenNode->next = cloneNode ;
+            givenNode = next ;
+            
+            next = cloneNode->next ;
+            cloneNode->next = givenNode ;
+            cloneNode = next ;
+        }
+        
+        temp = head ;
+        while(temp != NULL){
+            if(temp->next != NULL){
+                temp->next->arb = temp->arb ? temp->arb->next:temp->arb ;
+            }
+            temp = temp->next->next ;
             
         }
         
         givenNode = head ;
         cloneNode = cloneHead ;
         while(givenNode != NULL){
-            cloneNode->arb = m[givenNode->arb] ;
+            givenNode->next = cloneNode->next ;
             givenNode = givenNode->next ;
+            if(givenNode != NULL){
+                cloneNode->next = givenNode->next ;
+            }
+            
             cloneNode = cloneNode->next ;
         }
+        
         
         return cloneHead ;
         
