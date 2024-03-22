@@ -28,37 +28,61 @@ struct Node {
   }
 };
 */
-#include<vector>
+
 class Solution{
   private:
-    bool check(vector<int>&arr){
-        int s = 0;
-        int n = arr.size() ;
-        int e = n-1 ;
-        while(s<=e){
-            if(arr[s] != arr[e]){
-                return 0 ;
-            }
-            s++;
-            e--;
+    Node* getmid(Node* head){
+        Node* slow = head ;
+        Node* fast = head->next ;
+        while(fast != NULL && fast->next != NULL){
+            
+            fast = fast->next->next ;
+            slow = slow->next ;
+            
         }
-        return 1 ;
+        return slow;
+    }
+    
+    Node* res(Node* head){
+        Node* curr = head ;
+        Node* prev = NULL ;
+        Node* nxt = NULL ;
+        
+        while(curr != NULL){
+            nxt = curr->next ;
+            curr->next = prev ;
+            prev = curr ;
+            curr = nxt ;
+    
+        }
+        return prev ;
     }
   public:
     //Function to check whether the list is palindrome.
     bool isPalindrome(Node *head)
     {
-        vector<int>arr ;
-        Node* temp = head ;
-        while(temp != NULL){
-            arr.push_back(temp->data) ;
-            temp = temp->next ;
+        if(head->next == NULL){
+            return true ;
         }
+        Node* middle = getmid(head);
         
-        return check(arr) ;
+        Node* temp = middle->next ;
+        middle->next = res(temp);
+        
+        Node* head1 = head ;
+        Node* head2 = middle->next ;
+        while(head2 != NULL){
+            if(head1->data != head2->data){
+                return false; 
+            }
+            head1 = head1->next ;
+            head2 = head2->next ;
+        }
+        return true;
         
     }
 };
+
 
 
 
