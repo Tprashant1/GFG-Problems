@@ -12,17 +12,18 @@ class Solution {
         int maxSize = 0 ;
         vector<vector<int>>dp(m+1,vector<int>(n+1,0));
         
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(str1[i] == str2[j]){
-                    dp[i+1][j+1] = 1 + dp[i][j];
-                    maxSize = max(maxSize,dp[i+1][j+1]);
+        for(int i=1;i<=m;i++){
+            for(int j=1;j<=n;j++){
+                if(str1[i-1] == str2[j-1]){
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                    maxSize = max(maxSize,dp[i][j]);
                 }
             }
         }
         return maxSize;
     }
 };
+
 
 //{ Driver Code Starts.
 
