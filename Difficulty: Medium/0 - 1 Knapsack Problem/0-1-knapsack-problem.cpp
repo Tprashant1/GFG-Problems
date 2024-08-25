@@ -6,38 +6,41 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-  
-    int solveMem(vector<int>&weight, vector<int> &value, int index, int w,vector<vector<int>>&dp){
-	if(index == 0){
-		if(weight[index] <= w){
-			return value[index];
-		}
-		else{
-			return 0;
-		}
-	}
-
-	if(dp[index][w] != -1){
-		return dp[index][w];
-	}
-
-	int incl = 0 ;
-	if(weight[index] <= w){
-		incl = value[index] + solveMem(weight,value,index-1,w-weight[index],dp);
-	}
-
-	int excl = 0 + solveMem(weight,value,index-1,w,dp);
-
-	dp[index][w] = max(incl,excl);
-	return dp[index][w];
-}
-    
-    
     // Function to return max value that can be put in knapsack of capacity W.
+    
+    int solveTab(int W,vector<int>& wt, vector<int>& val,int n){
+        vector<vector<int>>dp(n+1,vector<int>(W+1,0));
+        
+        for(int i=wt[0];i<=W;i++){
+            if(wt[0] <= W){
+                dp[0][i] = val[0];
+            }
+            else{
+                return 0;
+            }
+        }
+        
+        for(int i=1;i<n;i++){
+            for(int j=0;j<=W;j++){
+                int incl = 0 ;
+                if(wt[i] <= j){
+                    incl = val[i] + dp[i-1][j-wt[i]];
+                }
+        
+        
+                int excl= 0 + dp[i-1][j];
+        
+                dp[i][j] = max(incl,excl);
+            }
+        }
+        
+        return dp[n-1][W];
+        
+    }
+    
     int knapSack(int W, vector<int>& wt, vector<int>& val) {
         int n = wt.size();
-        vector<vector<int>>dp(wt.size()+1,vector<int>(W+1,-1));
-	    return solveMem(wt,val,n-1,W,dp);
+        return solveTab(W,wt,val,n);
     }
 };
 
