@@ -29,10 +29,24 @@ class Solution {
         
     }
     
-    int minimizeCost(int k, vector<int>& arr) {
+    
+    int solveTab(int k,vector<int>&arr){
         int n = arr.size();
-        vector<int>dp(n+1,-1);
-        return solve(0,k,arr,dp);
+        vector<int>dp(n+1,INT_MAX);
+        dp[n-1] = 0 ;
+
+        for(int i=n-2;i>=0;i--){
+            for(int j=i+1;j<=i+k && j<=n-1;j++){
+                dp[i] = min(dp[i],abs(arr[i] -arr[j]) + dp[j]);
+            }
+        }
+        return dp[0];
+    }
+    
+    int minimizeCost(int k, vector<int>& arr) {
+        // int n = arr.size();
+        // vector<int>dp(n+1,-1);
+        return solveTab(k,arr);
     }
 };
 
