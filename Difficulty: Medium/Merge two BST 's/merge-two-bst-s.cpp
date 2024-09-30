@@ -97,45 +97,35 @@ class Solution {
     // Function to return a list of integers denoting the node
     // values of both the BST in a sorted order.
     
-    void inorder(Node *root,vector<int>&temp){
+    void inorder(Node* root,vector<int>&ans){
         if(root == NULL){
-            return;
+            return ;
         }
-        inorder(root->left,temp);
-        temp.push_back(root->data);
-        inorder(root->right,temp);
+        
+        inorder(root->left,ans);
+        ans.push_back(root->data);
+        inorder(root->right,ans);
     }
     
     vector<int> merge(Node *root1, Node *root2) {
         vector<int>temp1;
         vector<int>temp2;
-        vector<int>ans;
+        
         inorder(root1,temp1);
         inorder(root2,temp2);
         
-        int i=0;
-        int j=0;
-        while(i < temp1.size() && j < temp2.size()){
-            if(temp1[i] <= temp2[j]){
-                ans.push_back(temp1[i]);
-                i++;
-            }
-            else{
-                ans.push_back(temp2[j]);
-                j++;
-            }
+        vector<int>arr;
+        for(auto i:temp1){
+            arr.push_back(i);
         }
-        while(i < temp1.size()){
-            ans.push_back(temp1[i]);
-            i++;
+        
+        for(auto i:temp2){
+            arr.push_back(i);
         }
-        while(j < temp2.size()){
-            ans.push_back(temp2[j]);
-            j++;
-        }
-        return ans;
+        sort(arr.begin(),arr.end());
+        
+        return arr;
     }
-    
 };
 
 //{ Driver Code Starts.
