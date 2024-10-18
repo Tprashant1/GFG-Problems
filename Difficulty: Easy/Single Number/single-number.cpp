@@ -9,15 +9,11 @@ using namespace std;
 class Solution {
   public:
     int getSingle(vector<int>& arr) {
-        unordered_map<int,int>mp;
+        int xorElement = 0;
         for(auto i:arr){
-            mp[i]++;
+            xorElement = xorElement ^ i;
         }
-        for(auto i:arr){
-            if(mp[i] % 2 != 0){
-                return i;
-            }
-        }
+        return xorElement;
     }
 };
 
