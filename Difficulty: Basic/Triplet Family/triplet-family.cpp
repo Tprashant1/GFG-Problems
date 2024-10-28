@@ -7,16 +7,21 @@ using namespace std;
 class Solution {
   public:
     bool findTriplet(vector<int>& arr) {
-        set<int>st;
-        for(auto i:arr){
-            st.insert(i);
-        }
-        
-        for(int i=0;i<arr.size();i++){
-            for(int j=i+1;j<arr.size();j++){
-                int sum = arr[i] + arr[j];
-                if(st.find(sum) != st.end()){
+        sort(arr.begin(),arr.end());
+        int n = arr.size();
+        for(int i=n-1;i>1;i--){
+            int j = 0 ;
+            int k = i-1;
+            while(j < k){
+                int sum = arr[j] + arr[k] ;
+                if(sum == arr[i]){
                     return true;
+                }
+                else if(sum < arr[i]){
+                    j++;
+                }
+                else{
+                    k--;
                 }
             }
         }
