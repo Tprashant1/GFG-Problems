@@ -10,14 +10,17 @@ class Solution {
   public:
     /* Returns count of pairs with difference k  */
     int countPairsWithDiffK(vector<int>& arr, int k) {
-        map<int,int> map;
-        for(int i:arr) map[i]++;
-        int count = 0;
-        for(int i=0;i<arr.size();i++){
-            if(map[ k + arr[i]]){
-                count += map[k+arr[i]];
+        int n = arr.size();
+        int count = 0 ;
+        map<int,int>mp;
+        for(auto i:arr){
+            mp[i]++;
+        }
+        
+        for(int i=0;i<n;i++){
+            if(mp[arr[i]+k]){
+                count += mp[arr[i]+k];
             }
-            
         }
         return count;
     }
