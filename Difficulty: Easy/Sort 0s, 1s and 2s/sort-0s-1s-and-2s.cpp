@@ -37,7 +37,6 @@ class Solution {
             arr[i++] = 2;
             two--;
         } 
-        
     }
 };
 
@@ -67,6 +66,7 @@ int main() {
         }
 
         cout << endl;
+        cout << "~" << endl;
     }
     return 0;
 }
