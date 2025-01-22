@@ -32,8 +32,26 @@ class Solution {
   
     int cutRod(vector<int> &price) {
         int n = price.size();
-        vector<vector<int>>dp(n,vector<int>(n+1,-1));
-        return solve(n-1,n,price,dp);
+        vector<vector<int>>dp(n,vector<int>(n+1,0));
+        // return solve(n-1,n,price,dp);
+        
+        
+        for(int i=0; i<=n; i++){
+            dp[0][i]=i*price[0];
+        }
+        
+        for(int i=1; i<n; i++){
+            for(int j=0; j<=n; j++){
+                int notTake=dp[i-1][j];
+                int take=-1;
+                if(i+1 <= j){
+                    take=price[i]+dp[i][j-i-1];
+                }
+                dp[i][j]=max(take,notTake);
+            }
+        }
+        
+        return dp[n-1][n];
     }
 };
 
