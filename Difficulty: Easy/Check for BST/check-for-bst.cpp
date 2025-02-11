@@ -17,33 +17,32 @@ struct Node {
 
 
 // } Driver Code Ends
-class Solution
-{
-    public:
-    //Function to check whether a Binary Tree is BST or not.
-    void inorder(Node* root,vector<int>&ans){
+class Solution {
+  public:
+    // Function to check whether a Binary Tree is BST or not.
+    
+    void solve(Node* root,vector<int>&temp){
         if(root == NULL){
             return;
         }
-        inorder(root->left,ans);
-        ans.push_back(root->data);
-        inorder(root->right,ans);
+        
+        solve(root->left,temp);
+        temp.push_back(root->data);
+        solve(root->right,temp);
     }
-    bool isBST(Node* root) 
-    {
-        vector<int>ans;
-        inorder(root,ans);
-        for(int i=0;i<ans.size()-1;i++){
-            if(ans[i] >= ans[i+1]){
+    
+    bool isBST(Node* root) {
+        vector<int>temp;
+        solve(root,temp);
+        int n = temp.size();
+        for(int i=0;i<n;i++){
+            if(i+1 < n && temp[i] > temp[i+1]){
                 return false;
-            }
+            } 
         }
         return true;
     }
 };
-
-
-
 
 
 //{ Driver Code Starts.
@@ -140,6 +139,7 @@ int main() {
 
         else
             cout << "false\n";
+        cout << "~" << endl;
     }
     return 0;
 }
