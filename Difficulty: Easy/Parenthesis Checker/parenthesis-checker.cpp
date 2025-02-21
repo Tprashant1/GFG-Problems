@@ -1,68 +1,69 @@
 //{ Driver Code Starts
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 
 // } Driver Code Ends
 
-class Solution
-{
-    public:
-    //Function to check if brackets are balanced or not.
-    bool ispar(string x)
-    {
-        stack<char>s;
-        for(int i=0;i<x.size();i++){
-            char ch = x[i];
-            if(ch == '}'){
-                if(!s.empty() && s.top() == '{'){
-                    s.pop();
+class Solution {
+  public:
+    bool isBalanced(string& s) {
+        int n = s.size();
+        stack<char>st;
+        for(int i=0;i<n;i++){
+            char ch = s[i] ;
+            if(ch == ')'){
+                if(!st.empty() && st.top() == '('){
+                    st.pop();
                 }
                 else{
                     return false;
                 }
-            }
-            else if(ch == ')'){
-                if(!s.empty() && s.top() == '('){
-                    s.pop();
-                }
-                else{
-                    return false;
-                }
-            }
-            else if(ch == ']'){
-                if(!s.empty() && s.top() == '['){
-                    s.pop();
-                }
-                else{
-                    return false;
-                }
-            }
-            else{
-                s.push(ch);
             }
             
+            else if(ch == '}'){
+                if(!st.empty() && st.top() == '{'){
+                    st.pop();
+                }
+                else{
+                    return false;
+                }
+            }
+            
+            else if(ch == ']'){
+                if(!st.empty() && st.top() == '['){
+                    st.pop();
+                }
+                else{
+                    return false;
+                }
+            }
+            
+            else{
+                st.push(ch);
+            }
         }
-        return s.empty();
+        
+        return st.empty();
     }
-
 };
 
 //{ Driver Code Starts.
 
-int main()
-{
-   int t;
-   string a;
-   cin>>t;
-   while(t--)
-   {
-       cin>>a;
-       Solution obj;
-       if(obj.ispar(a))
-        cout<<"balanced"<<endl;
-       else
-        cout<<"not balanced"<<endl;
-   }
+int main() {
+    int t;
+    string a;
+    cin >> t;
+    while (t--) {
+        cin >> a;
+        Solution obj;
+        if (obj.isBalanced(a))
+            cout << "true" << endl;
+        else
+            cout << "false" << endl;
+
+        cout << "~"
+             << "\n";
+    }
 }
 // } Driver Code Ends
