@@ -9,38 +9,36 @@ using namespace std;
 class Solution {
   public:
     
-    bool isPalindrome(string &s,int i,int j,vector<vector<int>> &dp){
-        if(i >= j){
-            return true;
+    int PalinCnt(int i,int j,string &s){
+        int count = 0 ;
+        while(i >= 0 && j < s.size()){
+            if(s[i] == s[j]){
+                count++;
+                i--;
+                j++;
+            }
+            else{
+                break;
+            }
         }
         
-        if(dp[i][j] != -1){
-            return dp[i][j];
-        }
-        
-        if(s[i] == s[j]){
-            return dp[i][j] = isPalindrome(s,i+1,j-1,dp);
-        }
-        
-        return dp[i][j] = false;
+        return count;
     }
   
     int countPS(string &s) {
         int n = s.size();
-        int ans = 0;
-        vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
+        int oddcnt = 0;
+        int evencnt = 0;
         
         for(int i=0;i<n;i++){
-            for(int j=i+1;j<n;j++){
-                if(s[i] == s[j]){
-                    if(isPalindrome(s,i,j,dp)){
-                        ans++;
-                    }
-                }
-            }
+            oddcnt += PalinCnt(i-1,i+1,s);
         }
         
-        return ans;
+        for(int i=1;i<n;i++){
+            evencnt += PalinCnt(i-1,i,s);
+        }
+        
+        return oddcnt + evencnt;
     }
 };
 
