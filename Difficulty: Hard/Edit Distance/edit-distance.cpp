@@ -1,9 +1,11 @@
 //{ Driver Code Starts
+// Initial Template for C++
 #include <bits/stdc++.h>
 using namespace std;
 
 
 // } Driver Code Ends
+
 class Solution {
   public:
   
@@ -27,31 +29,33 @@ class Solution {
             return dp[m][n] ;
         }
     }
-    int minDistance(string word1, string word2) {
-        int m = word1.size();
-        int n = word2.size();
+    
+    // Function to compute the edit distance between two strings
+    int editDistance(string& s1, string& s2) {
+        int m = s1.size();
+        int n = s2.size();
         vector<vector<int>> dp(m+1,vector<int>(n+1,-1));
-        return solve(word1,word2,m,n,dp);
-    }
-  
-    int editDistance(string str1, string str2) {
-        int m = str1.size();
-        int n = str2.size();
-        vector<vector<int>> dp(m+1,vector<int>(n+1,-1));
-        return solve(str1,str2,m,n,dp);
+        return solve(s1,s2,m,n,dp);
     }
 };
 
+
 //{ Driver Code Starts.
+
 int main() {
+
     int T;
     cin >> T;
+    cin.ignore();
     while (T--) {
-        string s, t;
-        cin >> s >> t;
+        string s1;
+        getline(cin, s1);
+        string s2;
+        getline(cin, s2);
         Solution ob;
-        int ans = ob.editDistance(s, t);
+        int ans = ob.editDistance(s1, s2);
         cout << ans << "\n";
+        cout << "~" << endl;
     }
     return 0;
 }
